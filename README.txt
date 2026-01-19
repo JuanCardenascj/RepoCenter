@@ -1,4 +1,4 @@
-### 1. Contrato de reglas (core/rule.py)
+1. Contrato de reglas (core/rule.py)
 
 - Define la **interfaz/base class Rule** que todas las reglas deben cumplir.
 - Cada regla debe declarar:
@@ -6,59 +6,50 @@
   - required_fields: campos que necesita del input
   - evaluate(input_data): función que devuelve un resultado estructurado
 
-> Esto asegura consistencia y desacoplamiento entre motor y reglas.
 
----
-
-### 2. Motor de reglas (core/engine.py)
+2. Motor de reglas (core/engine.py)
 
 - Clase RuleEngine que recibe:
   - Un diccionario con datos de entrada
   - Una lista de objetos de tipo Rule
 - Ejecuta todas las reglas de forma independiente
 - Devuelve un resultado estructurado con:
-  - Resultados individuales por regla (`passed`, `reason`, `rule`)
-  - Resumen total (`passed`, `failed`)
+  - Resultados individuales por regla (passed, reason, rule)
+  - Resumen total (passed, failed)
 - Manejo básico de errores: captura excepciones de reglas sin detener la ejecución
 
----
-
-### 3. Registro de reglas (`core/registry.py`)
+3. Registro de reglas (core/registry.py)
 
 - Diccionario `RULE_REGISTRY` que mapea nombres de reglas a sus clases concretas
-- Función `get_rule_class(name)` para obtener la clase correspondiente
+- Función get_rule_class(name) para obtener la clase correspondiente
 - Permite activar/desactivar reglas sin cambiar el motor
 
----
-
-### 4. Reglas concretas (`rules/`)
+4. Reglas concretas (rules/)
 
 Se implementaron tres reglas de ejemplo:
 
-1. **AgeRule (`rule_age.py`)**
+1. AgeRule (rule_age.py)
    - Evalúa si la edad es ≥ 18
-2. **ScoreRule (`rule_score.py`)**
+2. ScoreRule (rule_score.py)
    - Evalúa si el puntaje es ≥ 50
-3. **CountryRule (`rule_country.py`)**
+3. CountryRule (rule_country.py)
    - Evalúa si el país está en la lista permitida
 
 Cada regla:
 
-- Cumple el contrato `Rule`
+- Cumple el contrato Rule
 - Solo accede a los datos que necesita
 - Devuelve resultados estructurados
 - No imprime, no lee archivos, no se llama entre sí
 
----
-
-### 5. Configuración (`config/rules.json`)
+5. Configuración (config/rules.json)
 
 - Archivo JSON que define qué reglas están activas:
-
 ```json
 {
   "active_rules": ["age", "score", "country"]
 }
+-El "score" fue borrado por funcionalidad, segun yo,
 
 
 
